@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Umi Design — Commission Shop</title>
+<style>
+  :root{
+    --bg: #EAF4FC;
+    --bg-soft: #F7FBFF;
+    --ink: #17324F;
+    --ink-soft: #4C6C89;
+    --primary: #2E7FD6;
+    --primary-dark: #1B5FA8;
+    --primary-soft: #CFE7FB;
+    --accent: #F4B942; /* warm sun accent, kept small & rare */
+    --card-border: #D3E7F7;
+    --radius: 18px;
+  }
+
+  *{ box-sizing: border-box; }
+
+  body{
+    margin:0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Nunito Sans', 'Segoe UI', sans-serif;
+    line-height: 1.6;
+  }
+
+  h1,h2,h3{
+    font-family: 'Baloo 2', 'Quicksand', 'Segoe UI', sans-serif;
+    color: var(--ink);
+    margin: 0 0 .4em 0;
+  }
+
+  a{ color: var(--primary-dark); }
+
+  .wrap{
+    max-width: 880px;
+    margin: 0 auto;
+    padding: 0 20px 80px;
+  }
+
+  /* ---------- Hero ---------- */
+  .hero{
+    position: relative;
+    padding: 70px 20px 90px;
+    text-align: center;
+    background: linear-gradient(180deg, var(--primary-soft) 0%, var(--bg) 100%);
+    overflow: hidden;
+  }
+
+  .hero::before{
+    content:"";
+    position:absolute;
+    bottom:-1px; left:0; right:0;
+    height:60px;
+    background: var(--bg);
+    clip-path: polygon(0 60%, 5% 55%, 10% 62%, 15% 50%, 20% 60%, 25% 48%, 30% 58%, 35% 52%, 40% 62%, 45% 50%,
+      50% 60%, 55% 48%, 60% 58%, 65% 52%, 70% 62%, 75% 50%, 80% 60%, 85% 52%, 90% 62%, 95% 55%, 100% 60%, 100% 100%, 0 100%);
+  }
+
+  .avatar{
+    width: 108px; height: 108px;
+    border-radius: 50%;
+    margin: 0 auto 18px;
+    background: var(--primary);
+    display:flex; align-items:center; justify-content:center;
+    font-family: 'Baloo 2', sans-serif;
+    font-size: 42px;
+    color: white;
+    border: 4px solid white;
+    box-shadow: 0 6px 18px rgba(46,127,214,0.28);
+  }
+
+  .hero h1{
+    font-size: 2.3rem;
+    letter-spacing: .5px;
+  }
+
+  .hero p.tag{
+    color: var(--ink-soft);
+    font-size: 1.05rem;
+    max-width: 480px;
+    margin: 6px auto 0;
+  }
+
+  .status-pill{
+    display:inline-block;
+    margin-top: 18px;
+    padding: 6px 16px;
+    border-radius: 999px;
+    background: white;
+    border: 1px solid var(--card-border);
+    font-size: .85rem;
+    color: var(--primary-dark);
+    font-weight: 700;
+  }
+
+  /* ---------- Sections ---------- */
+  section{ margin-top: 56px; }
+
+  .eyebrow{
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    font-size: .75rem;
+    font-weight: 800;
+    color: var(--primary);
+    margin-bottom: 6px;
+    display:block;
+  }
+
+  /* ---------- Services ---------- */
+  .services{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 16px;
+    margin-top: 18px;
+  }
+
+  .service-card{
+    background: white;
+    border: 1px solid var(--card-border);
+    border-radius: var(--radius);
+    padding: 20px;
+  }
+
+  .service-card .icon{
+    width: 40px; height: 40px;
+    border-radius: 12px;
+    background: var(--primary-soft);
+    color: var(--primary-dark);
+    display:flex; align-items:center; justify-content:center;
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+  }
+
+  .service-card h3{ font-size: 1.05rem; margin-bottom: 4px; }
+  .service-card p{ color: var(--ink-soft); font-size: .92rem; margin:0; }
+
+  /* ---------- Steps ---------- */
+  .steps{ margin-top: 18px; display:flex; flex-direction: column; gap: 14px; }
+
+  .step{
+    display:flex; gap: 16px; align-items:flex-start;
+    background: var(--bg-soft);
+    border: 1px solid var(--card-border);
+    border-radius: var(--radius);
+    padding: 16px 18px;
+  }
+
+  .step .num{
+    flex: none;
+    width: 34px; height: 34px;
+    border-radius: 50%;
+    background: var(--primary);
+    color: white;
+    font-weight: 800;
+    display:flex; align-items:center; justify-content:center;
+    font-family: 'Baloo 2', sans-serif;
+  }
+
+  .step h4{ margin: 0 0 2px; font-size: 1rem; }
+  .step p{ margin:0; color: var(--ink-soft); font-size: .92rem; }
+
+  /* ---------- Pricing ---------- */
+  .pricing{
+    margin-top: 18px;
+    background: white;
+    border: 1px solid var(--card-border);
+    border-radius: var(--radius);
+    overflow: hidden;
+  }
+
+  .price-row{
+    display:flex; justify-content: space-between; align-items:center;
+    padding: 14px 20px;
+    border-bottom: 1px solid var(--card-border);
+  }
+  .price-row:last-child{ border-bottom:none; }
+  .price-row .label{ font-weight: 700; }
+  .price-row .sub{ display:block; font-weight: 400; color: var(--ink-soft); font-size: .82rem; }
+  .price-row .amount{ font-family:'Baloo 2', sans-serif; color: var(--primary-dark); font-size: 1.1rem; }
+
+  .rush-note{
+    padding: 12px 20px;
+    background: var(--bg-soft);
+    font-size: .85rem;
+    color: var(--ink-soft);
+  }
+  .rush-note b{ color: var(--ink); }
+
+  /* ---------- Gallery (placeholder) ---------- */
+  .gallery{
+    margin-top: 18px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 12px;
+  }
+
+  .gallery .tile{
+    aspect-ratio: 1 / 1;
+    border-radius: 14px;
+    background: repeating-linear-gradient(45deg, var(--primary-soft), var(--primary-soft) 10px, #E1F0FC 10px, #E1F0FC 20px);
+    display:flex; align-items:center; justify-content:center;
+    color: var(--primary-dark);
+    font-size: .8rem;
+    font-weight: 700;
+    border: 1px solid var(--card-border);
+  }
+
+  /* ---------- Payment ---------- */
+  .payment-card{
+    margin-top: 18px;
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+    color: white;
+    border-radius: var(--radius);
+    padding: 22px;
+  }
+
+  .payment-card h3{ color: white; }
+
+  .pay-row{
+    display:flex; justify-content: space-between; align-items:center;
+    background: rgba(255,255,255,0.12);
+    border-radius: 12px;
+    padding: 12px 16px;
+    margin-top: 10px;
+  }
+
+  .pay-row .info{ font-size: .9rem; }
+  .pay-row .info b{ display:block; font-size: 1rem; letter-spacing: .5px; }
+
+  .copy-btn{
+    background: white;
+    color: var(--primary-dark);
+    border: none;
+    border-radius: 8px;
+    padding: 8px 14px;
+    font-weight: 800;
+    font-size: .82rem;
+    cursor: pointer;
+    transition: transform .15s ease;
+  }
+  .copy-btn:hover{ transform: translateY(-1px); }
+  .copy-btn:active{ transform: translateY(0); }
+  .copy-btn:focus-visible{ outline: 3px solid var(--accent); outline-offset: 2px; }
+
+  .payment-note{
+    font-size: .82rem;
+    margin-top: 12px;
+    color: #DCEBFA;
+  }
+
+  /* ---------- Rules ---------- */
+  .rules{ margin-top: 18px; padding-left: 20px; color: var(--ink-soft); font-size: .92rem; }
+  .rules li{ margin-bottom: 6px; }
+
+  /* ---------- Footer ---------- */
+  footer{
+    margin-top: 60px;
+    text-align: center;
+    padding-top: 24px;
+    border-top: 1px solid var(--card-border);
+  }
+
+  .socials{
+    display:flex; gap: 12px; justify-content:center; margin-top: 14px;
+  }
+
+  .socials a{
+    text-decoration: none;
+    background: white;
+    border: 1px solid var(--card-border);
+    color: var(--primary-dark);
+    padding: 8px 16px;
+    border-radius: 999px;
+    font-size: .85rem;
+    font-weight: 700;
+  }
+
+  footer p.made{ color: var(--ink-soft); font-size: .82rem; margin-top: 18px; }
+
+  @media (prefers-reduced-motion: reduce){
+    .copy-btn{ transition: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="avatar">U</div>
+  <h1>Umi Design</h1>
+  <p class="tag">Handmade banners, logos & watermarks — made calm, made blue.</p>
+  <span class="status-pill">🌊 Queue open · slots available</span>
+</div>
+
+<div class="wrap">
+
+  <section id="services">
+    <span class="eyebrow">What I make</span>
+    <h2>Services</h2>
+    <div class="services">
+      <div class="service-card">
+        <div class="icon">🏷️</div>
+        <h3>Name banners</h3>
+        <p>Soft-style, aurora-style, or bold ADS-style tags for your profile or shop.</p>
+      </div>
+      <div class="service-card">
+        <div class="icon">🔷</div>
+        <h3>Logos</h3>
+        <p>Simple marks built for small shops, communities, or personal brands.</p>
+      </div>
+      <div class="service-card">
+        <div class="icon">💧</div>
+        <h3>Watermarks</h3>
+        <p>Lightweight signature marks to protect your posted work.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="steps">
+    <span class="eyebrow">How it works</span>
+    <h2>Order in five steps</h2>
+    <div class="steps">
+      <div class="step">
+        <div class="num">1</div>
+        <div><h4>Tell me what you need</h4><p>Style, size, and where it'll be used.</p></div>
+      </div>
+      <div class="step">
+        <div class="num">2</div>
+        <div><h4>Pick a reference</h4><p>Browse the sample gallery below and link the closest match.</p></div>
+      </div>
+      <div class="step">
+        <div class="num">3</div>
+        <div><h4>Send the brief</h4><p>Colors, text, fonts, and any must-haves.</p></div>
+      </div>
+      <div class="step">
+        <div class="num">4</div>
+        <div><h4>Confirm & pay</h4><p>Send your payment slip with your nickname to join the queue.</p></div>
+      </div>
+      <div class="step">
+        <div class="num">5</div>
+        <div><h4>Receive your file</h4><p>Delivered by your chosen deadline, with one round of small edits.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="pricing">
+    <span class="eyebrow">Rates</span>
+    <h2>Pricing</h2>
+    <div class="pricing">
+      <div class="price-row">
+        <div class="label">Simple banner<span class="sub">Soft style, single character</span></div>
+        <div class="amount">89฿</div>
+      </div>
+      <div class="price-row">
+        <div class="label">Aurora-style banner<span class="sub">Gradient background, extra detail</span></div>
+        <div class="amount">150฿</div>
+      </div>
+      <div class="price-row">
+        <div class="label">ADS-style banner<span class="sub">Bold layout, promo-ready</span></div>
+        <div class="amount">180฿</div>
+      </div>
+      <div class="price-row">
+        <div class="label">Logo<span class="sub">2 concepts, 1 revision</span></div>
+        <div class="amount">250฿</div>
+      </div>
+      <div class="price-row">
+        <div class="label">Watermark<span class="sub">Single mark, transparent PNG</span></div>
+        <div class="amount">99฿</div>
+      </div>
+    </div>
+    <div class="rush-note"><b>Rush options:</b> +100฿ for 24-hour delivery · +150฿ for 3-hour delivery</div>
+  </section>
+
+  <section id="gallery">
+    <span class="eyebrow">Samples</span>
+    <h2>Portfolio</h2>
+    <div class="gallery">
+      <div class="tile">Banner 01</div>
+      <div class="tile">Banner 02</div>
+      <div class="tile">Logo 01</div>
+      <div class="tile">Logo 02</div>
+      <div class="tile">Watermark 01</div>
+      <div class="tile">Watermark 02</div>
+      <div class="tile">Banner 03</div>
+      <div class="tile">Logo 03</div>
+    </div>
+  </section>
+
+  <section id="payment">
+    <div class="payment-card">
+      <h3>Payment</h3>
+      <p style="color:#DCEBFA; margin-top:-4px;">Pick whichever's easiest, then send your slip with your nickname.</p>
+
+      <div class="pay-row">
+        <div class="info">Bank transfer<b>000-0-00000-0 (Example Bank)</b></div>
+        <button class="copy-btn" data-copy="000-0-00000-0">Copy</button>
+      </div>
+
+      <div class="pay-row">
+        <div class="info">Wallet transfer<b>08X-XXX-XXXX</b></div>
+        <button class="copy-btn" data-copy="08X-XXX-XXXX">Copy</button>
+      </div>
+
+      <p class="payment-note">Account name: Example Name · Please don't send payment before your order is confirmed.</p>
+    </div>
+  </section>
+
+  <section id="rules">
+    <span class="eyebrow">Before you order</span>
+    <h2>Good to know</h2>
+    <ul class="rules">
+      <li>Queue moves in the order payment slips are received.</li>
+      <li>One round of small edits included; bigger changes may cost extra.</li>
+      <li>References help, but exact copies of other artists' work won't be made.</li>
+      <li>Refunds available only before work has started.</li>
+    </ul>
+  </section>
+
+  <footer>
+    <h3>Say hello</h3>
+    <div class="socials">
+      <a href="#">Line</a>
+      <a href="#">Facebook</a>
+      <a href="#">Instagram</a>
+    </div>
+    <p class="made">Made with 💙 — Umi Design</p>
+  </footer>
+
+</div>
+
+<script>
+  document.querySelectorAll('.copy-btn').forEach(btn => {
+    btn.addEventListener('click', async () => {
+      const text = btn.getAttribute('data-copy');
+      try{
+        await navigator.clipboard.writeText(text);
+        const original = btn.textContent;
+        btn.textContent = 'Copied!';
+        setTimeout(() => btn.textContent = original, 1400);
+      }catch(e){
+        btn.textContent = 'Copy failed';
+        setTimeout(() => btn.textContent = 'Copy', 1400);
+      }
+    });
+  });
+</script>
+
+</body>
+</html>
